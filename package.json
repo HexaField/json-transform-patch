@@ -1,5 +1,5 @@
 {
-  "name": "@hexafield/json-transform",
+  "name": "@hexafield/json-transform-patch",
   "version": "1.0.0",
   "type": "module",
   "description": "A library for transforming JSON data via JSON Schema conditionals and patch operations.",
