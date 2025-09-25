@@ -3,7 +3,7 @@ import typescript from '@rollup/plugin-typescript'
 
 export default {
   input: `src/index.ts`,
-  external: [],
+  external: ['ajv', 'rfc6902'],
   output: [
     {
       file: `dist/index.js`,
