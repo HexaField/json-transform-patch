@@ -13,14 +13,14 @@ export const transformPlanSchema: any = {
     description: { type: 'string' },
     variables: {
       type: 'object',
-      additionalProperties: { $ref: '#/$defs/variableSpec' },
+      additionalProperties: { $ref: '#/$defs/variableSpec' }
     },
     preconditions: { $ref: '#/$defs/jsonSchema' },
     when: {
       type: 'array',
       minItems: 1,
-      items: { $ref: '#/$defs/whenBranch' },
-    },
+      items: { $ref: '#/$defs/whenBranch' }
+    }
   },
   required: ['when'],
   $defs: {
@@ -31,10 +31,10 @@ export const transformPlanSchema: any = {
       examples: [
         {
           properties: {
-            event: { properties: { type: { const: 'X' } } },
-          },
-        },
-      ],
+            event: { properties: { type: { const: 'X' } } }
+          }
+        }
+      ]
     },
     variableSpec: {
       type: 'object',
@@ -43,16 +43,16 @@ export const transformPlanSchema: any = {
         get: {
           type: 'string',
           description:
-            "A pointer expression to resolve a value from the runtime context. See spec prose for allowed expressions (e.g., '/index/{event.id}' or dotted 'event.foo').",
+            "A pointer expression to resolve a value from the runtime context. See spec prose for allowed expressions (e.g., '/index/{event.id}' or dotted 'event.foo')."
         },
         value: {
-          description: "Literal value if present; mutually exclusive with 'get'.",
-        },
+          description: "Literal value if present; mutually exclusive with 'get'."
+        }
       },
       oneOf: [
         { required: ['get'], not: { required: ['value'] } },
-        { required: ['value'], not: { required: ['get'] } },
-      ],
+        { required: ['value'], not: { required: ['get'] } }
+      ]
     },
     whenBranch: {
       type: 'object',
@@ -60,9 +60,9 @@ export const transformPlanSchema: any = {
       properties: {
         if: { $ref: '#/$defs/jsonSchema' },
         then: { $ref: '#/$defs/branchAction' },
-        else: { $ref: '#/$defs/branchAction' },
+        else: { $ref: '#/$defs/branchAction' }
       },
-      required: ['if', 'then'],
+      required: ['if', 'then']
     },
     branchAction: {
       type: 'object',
@@ -71,43 +71,41 @@ export const transformPlanSchema: any = {
         preconditions: { $ref: '#/$defs/jsonSchema' },
         variables: {
           type: 'object',
-          additionalProperties: { $ref: '#/$defs/variableSpec' },
+          additionalProperties: { $ref: '#/$defs/variableSpec' }
         },
         ops: {
           type: 'array',
-          items: { $ref: '#/$defs/operation' },
-        },
+          items: { $ref: '#/$defs/operation' }
+        }
       },
-      required: ['ops'],
+      required: ['ops']
     },
     pathTemplate: {
       type: 'string',
       description:
-        "A JSON Pointer-like string which may contain interpolation tokens in the form '{expr}'. Implementations MUST resolve tokens before use.",
+        "A JSON Pointer-like string which may contain interpolation tokens in the form '{expr}'. Implementations MUST resolve tokens before use."
     },
     valueSpec: {
       type: ['object', 'string', 'number', 'boolean', 'null', 'array'],
-      description:
-        'A specification for a value to be used by ops. If an object, it may be a reference form.',
+      description: 'A specification for a value to be used by ops. If an object, it may be a reference form.',
       oneOf: [
         {
           type: 'object',
           properties: {
             valueFrom: {
               type: 'string',
-              description:
-                "Dotted expression to read from context (e.g., 'event.foo') or a pointer.",
+              description: "Dotted expression to read from context (e.g., 'event.foo') or a pointer."
             },
-            literal: {},
+            literal: {}
           },
-          additionalProperties: false,
+          additionalProperties: false
         },
         { type: 'string' },
         { type: 'number' },
         { type: 'boolean' },
         { type: 'null' },
-        { type: 'array' },
-      ],
+        { type: 'array' }
+      ]
     },
     operation: {
       type: 'object',
@@ -117,39 +115,39 @@ export const transformPlanSchema: any = {
         path: { $ref: '#/$defs/pathTemplate' },
         from: {
           type: 'string',
-          description: "RFC 6902 'from' pointer; may contain interpolation tokens.",
+          description: "RFC 6902 'from' pointer; may contain interpolation tokens."
         },
         value: { $ref: '#/$defs/valueSpec' },
         testKind: {
           type: 'string',
           enum: ['equality', 'deepEqual'],
-          description: "Optional. Specifies how 'test' compares values.",
-        },
+          description: "Optional. Specifies how 'test' compares values."
+        }
       },
       allOf: [
         {
           if: { properties: { op: { const: 'remove' } } },
-          then: { required: ['path'], not: { required: ['value'] } },
+          then: { required: ['path'], not: { required: ['value'] } }
         },
         {
           if: { properties: { op: { const: 'test' } } },
-          then: { required: ['path', 'value'] },
+          then: { required: ['path', 'value'] }
         },
         {
           if: { properties: { op: { const: 'add' } } },
-          then: { required: ['path', 'value'] },
+          then: { required: ['path', 'value'] }
         },
         {
           if: { properties: { op: { const: 'replace' } } },
-          then: { required: ['path', 'value'] },
+          then: { required: ['path', 'value'] }
         },
         {
           if: { properties: { op: { const: 'set' } } },
-          then: { required: ['path', 'value'] },
-        },
-      ],
-    },
-  },
+          then: { required: ['path', 'value'] }
+        }
+      ]
+    }
+  }
 }
 
 export default transformPlanSchema

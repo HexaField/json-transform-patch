@@ -47,7 +47,6 @@ The JSON Schema provided in §5 constrains the structure of a Transform Plan. Im
 3. Evaluate `variables` (if present) to produce a `vars` map derivable from `context` (see §3.2).
 4. Evaluate `preconditions` (if present) against `{ event, state, vars }`; failure aborts the plan with no state mutation.
 5. Evaluate `when` branches in order. For each branch:
-
    - Evaluate the branch `if` predicate (a JSON Schema fragment applied to `{ event, state, vars }`).
    - If the predicate matches, evaluate associated `then` (and optional `else`) actions; only the first matching branch is executed unless implementations explicitly support multiple-match semantics.
 
@@ -67,7 +66,6 @@ The JSON Schema provided in §5 constrains the structure of a Transform Plan. Im
 ### 3.4 Ops and failure semantics
 
 - Supported `op` types: `add`, `replace`, `remove`, `test`, `set`.
-
   - `set` is a convenience that behaves like `add` if the target does not exist, or `replace` if it does.
 
 - `test` must validate that the value at `path` equals the resolved `value`; failure of a `test` causes the entire plan to abort without applying further ops.
@@ -83,7 +81,6 @@ The JSON Schema provided in §5 constrains the structure of a Transform Plan. Im
 - `preconditions` — optional JSON Schema object evaluated against `{ event, state, vars }`.
 - `when` — required non-empty array of `WhenBranch` objects.
 - Each `WhenBranch`:
-
   - `if` — required JSON Schema fragment.
   - `then` — required object with an `ops` array; may include `preconditions` and `variables`.
   - `else` — optional object with `ops`.

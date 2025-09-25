@@ -15,6 +15,7 @@
   "scripts": {
     "build": "rm -rf dist && rollup -c",
     "test": "npm run build && vitest run",
+    "format": "prettier --write .",
     "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [],

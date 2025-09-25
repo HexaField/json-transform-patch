@@ -2,12 +2,11 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-  environment: 'node',
+    environment: 'node',
     setupFiles: [],
-    globals: true,
+    globals: true
   },
   resolve: {
-    conditions: ['development', 'default'],
-  },
+    conditions: ['development', 'default']
+  }
 })
-

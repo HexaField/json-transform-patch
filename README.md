@@ -26,20 +26,20 @@ const plan = {
       then: {
         ops: [
           { op: 'set', path: '/index/byGroup/{event.groupId}', value: { valueFrom: 'event.itemId' } },
-          { op: 'set', path: '/index/byItem/{event.itemId}', value: { valueFrom: 'event.groupId' } },
-        ],
-      },
+          { op: 'set', path: '/index/byItem/{event.itemId}', value: { valueFrom: 'event.groupId' } }
+        ]
+      }
     },
     {
       if: { properties: { event: { properties: { add: { const: false } } } } },
       then: {
         ops: [
           { op: 'remove', path: '/index/byGroup/{event.groupId}' },
-          { op: 'remove', path: '/index/byItem/{event.itemId}' },
-        ],
-      },
-    },
-  ],
+          { op: 'remove', path: '/index/byItem/{event.itemId}' }
+        ]
+      }
+    }
+  ]
 }
 
 const ctx = { event: { add: true, groupId: 'G1', itemId: 'I1' }, state: { index: {} } }
